@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Carousel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2 , user-scalable=no">
+	<link rel="stylesheet" href="swiper.min.css">
+	<link rel="stylesheet" href="animate.css">
+
+	<style>
+	html, body {
+			position: relative;
+			height: 100%;
+	}
+	body {
+			background: #000;
+			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			color:#000;
+			margin: 0;
+			padding: 0;
+	}
+	.container {
+			position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+	}
+	.swiper-container {
+			width: 100%;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+	}
+	.swiper-slide {
+			background-size: cover;
+			background-position: center;
+	}
+	.gallery-top {
+			height: 85%;
+			width: 100%;
+	}
+	.gallery-thumbs {
+			height: 15%;
+			box-sizing: border-box;
+			padding: 10px 0;
+	}
+	.gallery-thumbs .swiper-slide {
+			width: 25%;
+			height: 100%;
+			opacity: 0.4;
+	}
+	.gallery-thumbs .swiper-slide-active {
+			opacity: 1;
+	}
+	.thumbnail img {
+		width: 100%;
+    max-width: 40px;
+    position: fixed;
+    top: 10px;
+    z-index: 10;
+    right: 10px;
+	}
+	.popdiv {
+		width:100%;
+		height:100%;
+		background-color:rgba(0,0,0,1);
+		position:fixed;
+		top:0;
+		left:0;
+		z-index: 100;
+	}
+	.hide {
+		display: none;
+	}
+	.escpopdiv {
+		top: 50px;
+		left: 20px;
+	}
+	.popdiv > ul  {
+		position:relative;
+		top:50px;
+		list-style: none;
+		padding-left:0;
+		text-align: center;
+		z-index: 101;
+		overflow: auto;
+		height: 86%;
+		margin:0;
+	}
+	.popdiv > ul > li {
+		display: inline-block;
+		/*margin-right:5px;
+		margin-bottom:5px;*/
+	}
+	.popdiv > ul img {
+		width:100%;
+		max-width:120px;
+		height:80px;
+	}
+	.popdiv2 {
+		width:100%;
+		height:100%;
+		background-color:rgba(0,0,0,1);
+		position:fixed;
+		top:0;
+		left:0;
+		z-index: 102;
+	}
+
+
+	.loader {
+					 width:100%;
+					 height:100%;
+					 background: #C0DAD9;
+					 position:relative;
+					 top:0;
+					 left:0;
+					 z-index:105;
+			 }
+
+			 .loader__bar {
+					 color: #fff;
+					 line-height: 2em;
+					 height: 2em;
+					 position: absolute;
+					 left: 50%;
+					 top: 50%;
+					 width: 10em;
+					 text-align: center;
+					 margin-left: -5em;
+					 margin-top: -1em;
+					 overflow: hidden;
+			 }
+
+			 .loader__progress,.loader__progress-bg,.loader__info {
+					 position: absolute;
+					 height: 100%;
+					 left: 0;
+					 top: 0;
+			 }
+
+			 .loader__progress {
+					 z-index: 1;
+					 width: 0;
+					 background: #1A3831;
+					 border-radius: 1em;
+			 }
+
+			 .loader__progress-bg {
+					 z-index: 0;
+					 width: 100%;
+					 background: #3C776A;
+					 border-radius: 1em;
+			 }
+
+			 .loader__info {
+					 z-index: 2;
+					 width: 100%;
+			 }
+
+
+	</style>
+</head>
+<body>
+
+
+
+	<div class="container" id="page1">
+
+		<section id="loader" class="loader">
+	        <div class="loader__bar">
+	            <div class="loader__progress-bg"></div>
+	            <div id="loader__progress" class="loader__progress"></div>
+	            <div id="loader__info" class="loader__info">Loading 0%</div>
+	        </div>
+	  </section>
+		<a class="thumbnail" id="thumbnailid"><img src="imgs/thumbnail.png"></a>
+		<div class="popdiv hide">
+			<div class="swiper-button-prev swiper-button-white escpopdiv" style="zoom:50%;margin-left: auto;margin-right: auto;width: 94%;" ></div>
+			<ul class="popul">
+				<li><img src="imgs/1.jpg"></li>
+				<li><img src="imgs/2.jpg"></li>
+				<li><img src="imgs/3.jpg"></li>
+				<li><img src="imgs/4.jpg"></li>
+				<li><img src="imgs/5.jpg"></li>
+				<li><img src="imgs/6.jpg"></li>
+				<li><img src="imgs/7.jpg"></li>
+				<li><img src="imgs/8.jpg"></li>
+				<li><img src="imgs/9.jpg"></li>
+				<li><img src="imgs/10.jpg"></li>
+				<li><img src="imgs/11.jpg"></li>
+				<li><img src="imgs/12.jpg"></li>
+				<li><img src="imgs/13.jpg"></li>
+				<li><img src="imgs/14.jpg"></li>
+				<li><img src="imgs/15.jpg"></li>
+				<li><img src="imgs/16.jpg"></li>
+				<li><img src="imgs/17.jpg"></li>
+				<li><img src="imgs/18.jpg"></li>
+				<li><img src="imgs/19.jpg"></li>
+				<li><img src="imgs/20.jpg"></li>
+				<li><img src="imgs/1.jpg"></li>
+				<li><img src="imgs/2.jpg"></li>
+				<li><img src="imgs/3.jpg"></li>
+				<li><img src="imgs/4.jpg"></li>
+				<li><img src="imgs/5.jpg"></li>
+				<li><img src="imgs/6.jpg"></li>
+				<li><img src="imgs/7.jpg"></li>
+				<li><img src="imgs/8.jpg"></li>
+				<li><img src="imgs/9.jpg"></li>
+				<li><img src="imgs/10.jpg"></li>
+				<li><img src="imgs/11.jpg"></li>
+				<li><img src="imgs/12.jpg"></li>
+				<li><img src="imgs/13.jpg"></li>
+				<li><img src="imgs/14.jpg"></li>
+				<li><img src="imgs/15.jpg"></li>
+				<li><img src="imgs/16.jpg"></li>
+				<li><img src="imgs/17.jpg"></li>
+				<li><img src="imgs/18.jpg"></li>
+				<li><img src="imgs/19.jpg"></li>
+				<li><img src="imgs/20.jpg"></li>
+
+			</ul>
+			<!-- <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+
+
+
+				<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+					<a href="https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_b.jpg" itemprop="contentUrl" data-size="964x1024">
+							<img src="https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_m.jpg" itemprop="thumbnail" alt="Image description" />
+					</a>
+					<figcaption itemprop="caption description">Image caption 2.1</figcaption>
+				</figure>
+
+				<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+					<a href="https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg" itemprop="contentUrl" data-size="1024x683">
+							<img src="https://farm7.staticflickr.com/6175/6176698785_7dee72237e_m.jpg" itemprop="thumbnail" alt="Image description" />
+					</a>
+					<figcaption itemprop="caption description">Image caption 2.2</figcaption>
+				</figure>
+
+				<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+					<a href="https://farm6.staticflickr.com/5023/5578283926_822e5e5791_b.jpg" itemprop="contentUrl" data-size="1024x768">
+							<img src="https://farm6.staticflickr.com/5023/5578283926_822e5e5791_m.jpg" itemprop="thumbnail" alt="Image description" />
+					</a>
+					<figcaption itemprop="caption description">Image caption 2.3</figcaption>
+				</figure>
+
+
+			</div> -->
+
+
+		</div>
+		<div class="popdiv2 hide">
+			<!-- <div class="swiper-button-prev swiper-button-white escpopdiv" style="zoom:50%;margin-left: auto;margin-right: auto;width: 94%;" ></div> -->
+			<img class="popimg" src="">
+		</div>
+		<!-- Swiper -->
+		<div class="swiper-container gallery-top ">
+				<div class="swiper-wrapper big-image">
+						<div class="swiper-slide" style="background-image:url(imgs/1.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/2.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/3.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/4.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/5.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/6.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/7.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/8.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/9.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/10.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/11.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/12.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/13.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/14.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/15.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/16.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/17.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/18.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/19.jpg)"></div>
+						<div class="swiper-slide" style="background-image:url(imgs/20.jpg)"></div>
+				</div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next swiper-button-white hide" style="zoom:50%;"></div>
+				<div class="swiper-button-prev swiper-button-white hide" style="zoom:50%;" ></div>
+		</div>
+		<div class="swiper-container gallery-thumbs">
+			<div class="swiper-wrapper tiny-image">
+					<div class="swiper-slide" style="background-image:url(imgs/1.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/2.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/3.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/4.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/5.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/6.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/7.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/8.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/9.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/10.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/11.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/12.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/13.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/14.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/15.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/16.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/17.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/18.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/19.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/20.jpg)"></div>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- Swiper JS -->
+	<script src="swiper.min.js"></script>
+	<script src="zepto.js"></script>
+	<script src="imgLoader.js"></script>
+	<!-- <script src="jquery.mobile-1.4.5.min.js"></script> -->
+	<!-- Initialize Swiper -->
+	<script>
+	var galleryTop = new Swiper('.gallery-top', {
+			nextButton: '.swiper-button-next',
+			prevButton: '.swiper-button-prev',
+			spaceBetween: 10,
+	});
+	var galleryThumbs = new Swiper('.gallery-thumbs', {
+			spaceBetween: 10,
+			centeredSlides: true,
+			slidesPerView: 'auto',
+			touchRatio: 0.2,
+			slideToClickedSlide: true
+	});
+	galleryTop.params.control = galleryThumbs;
+	galleryThumbs.params.control = galleryTop;
+
+	</script>
+  <script type="text/javascript">
+			/*  禁止拖动  */
+			//  document.ontouchmove = function(e){ e.preventDefault(); };
+  	//  $(document).ready(function(){
+			 Zepto(function($){
+
+			 $(".thumbnail").on("tap",function(){
+				//  alert(1);
+				 $(".popdiv").removeClass("hide");
+			 });
+
+
+			// $(document).on("pageinit","#page1",function(){
+			//
+			// 	$(".thumbnail").on("tap",function(){
+			// 			$(".popdiv").removeClass("hide");
+			// 	})
+
+			// document.getElementById("thumbnailid").addEventListener('touchstart',function(){
+			// 	$(".popdiv").removeClass("hide");
+			// })
+			 $(".escpopdiv").on("tap",function(){
+				  $(".popdiv").addClass("hide");
+			 });
+			 $(".popul > li").on("tap",function(){
+					$(".popdiv2").removeClass("hide");
+					var pop_img_url = $(this).children()[0].src;
+					var indexof_ar = pop_img_url.indexOf("ar/");
+					var length = pop_img_url.length;
+
+					var naturalHeight = $(this).children()[0].naturalHeight;
+					var naturalWidth = $(this).children()[0].naturalWidth
+					/**
+					var img_url = pop_img_url.substring(indexof_ar+3,length);
+
+					$(".popdiv").addClass("hide");
+					$(".tiny-image > div").each(function(){
+
+						var url = $(this)[0].style.backgroundImage;
+						if(url.indexOf(img_url)>0){
+							console.log($(this))
+							$(this).trigger("click");
+						}
+
+					});
+					**/
+
+					$(".popimg").attr('src',pop_img_url);
+					if(naturalHeight>naturalWidth){
+						$(".popimg").css({'width':'100%','height':'80%','position':'relative','top':'50%','transform':'translateY(-50%)'});
+					}else {
+						$(".popimg").css({'width':'100%','height':'50%','position':'relative','top':'50%','transform':'translateY(-50%)'});
+					}
+			 })
+			 $(".popdiv2").on("tap",function(){
+				 $(this).addClass("hide");
+			 })
+		 })
+  </script>
+
+<script>
+
+    //模拟加载慢的效果
+		/**
+    var callbacks = [];
+    imgLoader(['img/page1.jpg', 'img/page2.jpg', 'img/page3.jpg','1.mp3'], function (percentage) {
+        callbacks.push((function(percent, i){
+            return function(){
+                setTimeout(function(){
+                    var percentT = percent * 100;
+                    $('#loader__info').html('Loading ' + (parseInt(percentT)) + '%');
+                    $('#loader__progress')[0].style.width = percentT + '%';
+                    if (percent == 1) {
+                        setTimeout(function(){
+                            $('#loader').remove();
+                            Swipe.init();
+                        }, 600);
+                    }
+                    callbacks[i + 1] && callbacks[i + 1]();
+                },600);
+            }
+        })(percentage, callbacks.length));
+
+        if(percentage == 1) {
+            callbacks[0]();
+        }
+    });
+   */
+    //=================================================
+    //* 以上代码为模拟网速慢的情况，特意对进度处理的回调做了延迟
+    //* 真实环境，应该使用下面注释的代码
+    //=================================================
+				var get_img_arr = function(sum){
+					var array = [];
+					for ( var i = 1; i <= sum; i++){
+							array.push('imgs/'+i+'.jpg');
+					}
+					return array;
+				}
+				var start_time = new Date().getTime();
+        imgLoader(get_img_arr(20), function (percentage) {
+            var percentT = percentage * 100;
+            $('#loader__info').html('Loading ' + (parseInt(percentT)) + '%');
+            $('#loader__progress')[0].style.width = percentT + '%';
+						var end_time = new Date().getTime();
+            if (percentage == 1 || (end_time - start_time) > 5000) {
+                $('#loader').remove();
+								// $('.big-image').removeClass("hide");
+            }
+        });
+
+</script>
+
+
+
+</body>
+</html>

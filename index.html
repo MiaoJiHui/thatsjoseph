@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Carousel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2 , user-scalable=no">
+	<link rel="stylesheet" href="swiper.min.css">
+	<link rel="stylesheet" href="animate.css">
+  <link rel="stylesheet" href="photoswipe.css" media="screen" title="no title" charset="utf-8">
+  <script src="jquery-1.12.3.min.js"></script>
+  <script src="jquery.lazyload.min.js"></script>
+	<style>
+	html, body {
+			position: relative;
+			height: 100%;
+	}
+	body {
+			background: #000;
+			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			color:#000;
+			margin: 0;
+			padding: 0;
+	}
+	.container {
+			position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+	}
+	.swiper-container {
+			width: 100%;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+	}
+	.swiper-slide {
+			background-size: cover;
+			background-position: center;
+	}
+	.gallery-top {
+			height: 85%;
+			width: 100%;
+	}
+	.gallery-thumbs {
+			height: 15%;
+			box-sizing: border-box;
+			padding: 10px 0;
+	}
+	.gallery-thumbs .swiper-slide {
+			width: 25%;
+			height: 100%;
+			opacity: 0.4;
+	}
+	.gallery-thumbs .swiper-slide-active {
+			opacity: 1;
+	}
+	.thumbnail img {
+		width: 100%;
+    max-width: 40px;
+    position: fixed;
+    top: 10px;
+    z-index: 10;
+    right: 10px;
+	}
+	.popdiv {
+		width:100%;
+		height:100%;
+		background-color:rgba(0,0,0,1);
+		position:fixed;
+		top:0;
+		left:0;
+		z-index: 100;
+	}
+	.hide {
+		display: none;
+	}
+	.escpopdiv {
+		top: 50px;
+		left: 20px;
+	}
+	.popdiv > ul  {
+		position:relative;
+		top:50px;
+		list-style: none;
+		padding-left:0;
+		text-align: center;
+		z-index: 101;
+		/*overflow: auto;*/
+		height: 86%;
+		margin:0;
+	}
+	.popdiv > ul > li {
+		display: inline-block;
+		/*margin-right:5px;
+		margin-bottom:5px;*/
+	}
+	.popdiv > ul img {
+		width:100%;
+		max-width:120px;
+		height:80px;
+	}
+	.popdiv2 {
+		width:100%;
+		height:100%;
+		background-color:rgba(0,0,0,1);
+		position:fixed;
+		top:0;
+		left:0;
+		z-index: 102;
+	}
+
+
+	.loader {
+					 width:100%;
+					 height:100%;
+					 background: #C0DAD9;
+					 position:relative;
+					 top:0;
+					 left:0;
+					 z-index:105;
+			 }
+
+			 .loader__bar {
+					 color: #fff;
+					 line-height: 2em;
+					 height: 2em;
+					 position: absolute;
+					 left: 50%;
+					 top: 50%;
+					 width: 10em;
+					 text-align: center;
+					 margin-left: -5em;
+					 margin-top: -1em;
+					 overflow: hidden;
+			 }
+
+			 .loader__progress,.loader__progress-bg,.loader__info {
+					 position: absolute;
+					 height: 100%;
+					 left: 0;
+					 top: 0;
+			 }
+
+			 .loader__progress {
+					 z-index: 1;
+					 width: 0;
+					 background: #1A3831;
+					 border-radius: 1em;
+			 }
+
+			 .loader__progress-bg {
+					 z-index: 0;
+					 width: 100%;
+					 background: #3C776A;
+					 border-radius: 1em;
+			 }
+
+			 .loader__info {
+					 z-index: 2;
+					 width: 100%;
+			 }
+       figure {
+         display: inline-block;
+         margin: 0
+       }
+
+	</style>
+
+</head>
+<body >
+
+
+
+	<div class="container" >
+
+		<section id="loader" class="loader">
+	        <div class="loader__bar">
+	            <div class="loader__progress-bg"></div>
+	            <div id="loader__progress" class="loader__progress"></div>
+	            <div id="loader__info" class="loader__info">Loading 0%</div>
+	        </div>
+	  </section>
+		<a class="thumbnail" id="thumbnailid"><img src="imgs/thumbnail.png"></a>
+		<div class="popdiv hide">
+			<div class="swiper-button-prev swiper-button-white escpopdiv" style="zoom:50%;margin-left: auto;margin-right: auto;width: 94%;" ></div>
+			<ul class="popul">
+
+          <div class="my-gallery" >
+            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+              <a href="imgs/1.jpg" itemprop="contentUrl" data-size="964x1024">
+                  <img class="lazy" data-original="imgs/1.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/2.jpg" itemprop="contentUrl" data-size="1024x683">
+                  <img class="lazy" data-original="imgs/2.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/3.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/3.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/4.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/4.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/5.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/5.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/6.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/6.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/7.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/7.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/8.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/8.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/9.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/9.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/10.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/10.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/11.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/11.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/12.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/12.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/13.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/13.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/14.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/14.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/15.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/15.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/16.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/16.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/17.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/17.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/18.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/18.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/19.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/19.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+            <figure itemprop="associatedMedia">
+              <a href="imgs/20.jpg" itemprop="contentUrl" data-size="1024x768">
+                  <img class="lazy" data-original="imgs/20.jpg" itemprop="thumbnail" alt="Image description" />
+              </a>
+            </figure>
+
+          </div>
+			</ul>
+
+		</div>
+
+		<!-- Swiper -->
+		<div class="swiper-container gallery-top ">
+				<div class="swiper-wrapper big-image">
+          <div class="swiper-slide" style="background-image:url(imgs/1.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/2.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/3.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/4.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/5.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/6.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/7.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/8.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/9.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/10.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/11.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/12.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/13.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/14.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/15.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/16.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/17.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/18.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/19.jpg)"></div>
+          <div class="swiper-slide" style="background-image:url(imgs/20.jpg)"></div>
+
+				</div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next swiper-button-white hide" style="zoom:50%;"></div>
+				<div class="swiper-button-prev swiper-button-white hide" style="zoom:50%;" ></div>
+		</div>
+		<div class="swiper-container gallery-thumbs">
+			<div class="swiper-wrapper tiny-image">
+					<div class="swiper-slide" style="background-image:url(imgs/1.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/2.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/3.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/4.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/5.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/6.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/7.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/8.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/9.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/10.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/11.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/12.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/13.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/14.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/15.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/16.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/17.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/18.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/19.jpg)"></div>
+					<div class="swiper-slide" style="background-image:url(imgs/20.jpg)"></div>
+
+			</div>
+		</div>
+
+	</div>
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+      <!-- Background of PhotoSwipe.
+           It's a separate element, as animating opacity is faster than rgba(). -->
+      <div class="pswp__bg"></div>
+
+      <!-- Slides wrapper with overflow:hidden. -->
+      <div class="pswp__scroll-wrap">
+
+          <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+          <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+          <div class="pswp__container">
+              <div class="pswp__item"></div>
+              <div class="pswp__item"></div>
+              <div class="pswp__item"></div>
+          </div>
+
+          <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+          <div class="pswp__ui pswp__ui--hidden">
+
+              <div class="pswp__top-bar">
+
+                  <!--  Controls are self-explanatory. Order can be changed. -->
+
+                  <div class="pswp__counter"></div>
+
+                  <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                  <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                  <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                  <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                  <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                  <!-- element will get class pswp__preloader--active when preloader is running -->
+                  <div class="pswp__preloader">
+                      <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                          <div class="pswp__preloader__donut"></div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                  <div class="pswp__share-tooltip"></div>
+              </div>
+
+              <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+              </button>
+
+              <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+              </button>
+
+              <div class="pswp__caption">
+                  <div class="pswp__caption__center"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+        <script type="text/javascript" charset="utf-8">
+          $(function() {
+              $("img.lazy").lazyload({effect: "fadeIn"});
+          });
+        </script>
+
+        <script type="text/javascript" src="photoswipe.min.js"></script>
+        <script type="text/javascript" src="photoswipe-ui-default.min.js"></script>
+         <script type="text/javascript">
+             var initPhotoSwipeFromDOM = function(gallerySelector) {
+
+           // parse slide data (url, title, size ...) from DOM elements
+           // (children of gallerySelector)
+           var parseThumbnailElements = function(el) {
+               var thumbElements = el.childNodes,
+                   numNodes = thumbElements.length,
+                   items = [],
+                   figureEl,
+                   linkEl,
+                   size,
+                   item;
+
+               for(var i = 0; i < numNodes; i++) {
+
+                   figureEl = thumbElements[i]; // <figure> element
+
+                   // include only element nodes
+                   if(figureEl.nodeType !== 1) {
+                       continue;
+                   }
+
+                   linkEl = figureEl.children[0]; // <a> element
+
+                   size = linkEl.getAttribute('data-size').split('x');
+
+                   // create slide object
+                   item = {
+                       src: linkEl.getAttribute('href'),
+                       w: parseInt(size[0], 10),
+                       h: parseInt(size[1], 10)
+                   };
+
+
+
+                   if(figureEl.children.length > 1) {
+                       // <figcaption> content
+                       item.title = figureEl.children[1].innerHTML;
+                   }
+
+                   if(linkEl.children.length > 0) {
+                       // <img> thumbnail element, retrieving thumbnail url
+                       item.msrc = linkEl.children[0].getAttribute('src');
+                   }
+
+                   item.el = figureEl; // save link to element for getThumbBoundsFn
+                   items.push(item);
+               }
+
+               return items;
+           };
+
+           // find nearest parent element
+           var closest = function closest(el, fn) {
+               return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+           };
+
+           // triggers when user clicks on thumbnail
+           var onThumbnailsClick = function(e) {
+               e = e || window.event;
+               e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+               var eTarget = e.target || e.srcElement;
+
+               // find root element of slide
+               var clickedListItem = closest(eTarget, function(el) {
+                   return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+               });
+
+               if(!clickedListItem) {
+                   return;
+               }
+
+               // find index of clicked item by looping through all child nodes
+               // alternatively, you may define index via data- attribute
+               var clickedGallery = clickedListItem.parentNode,
+                   childNodes = clickedListItem.parentNode.childNodes,
+                   numChildNodes = childNodes.length,
+                   nodeIndex = 0,
+                   index;
+
+               for (var i = 0; i < numChildNodes; i++) {
+                   if(childNodes[i].nodeType !== 1) {
+                       continue;
+                   }
+
+                   if(childNodes[i] === clickedListItem) {
+                       index = nodeIndex;
+                       break;
+                   }
+                   nodeIndex++;
+               }
+
+
+
+               if(index >= 0) {
+                   // open PhotoSwipe if valid index found
+                   openPhotoSwipe( index, clickedGallery );
+               }
+               return false;
+           };
+
+           // parse picture index and gallery index from URL (#&pid=1&gid=2)
+           var photoswipeParseHash = function() {
+               var hash = window.location.hash.substring(1),
+               params = {};
+
+               if(hash.length < 5) {
+                   return params;
+               }
+
+               var vars = hash.split('&');
+               for (var i = 0; i < vars.length; i++) {
+                   if(!vars[i]) {
+                       continue;
+                   }
+                   var pair = vars[i].split('=');
+                   if(pair.length < 2) {
+                       continue;
+                   }
+                   params[pair[0]] = pair[1];
+               }
+
+               if(params.gid) {
+                   params.gid = parseInt(params.gid, 10);
+               }
+
+               return params;
+           };
+
+           var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+               var pswpElement = document.querySelectorAll('.pswp')[0],
+                   gallery,
+                   options,
+                   items;
+
+               items = parseThumbnailElements(galleryElement);
+
+               // define options (if needed)
+               options = {
+
+                   // define gallery index (for URL)
+                   galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+                   getThumbBoundsFn: function(index) {
+                       // See Options -> getThumbBoundsFn section of documentation for more info
+                       var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                           pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                           rect = thumbnail.getBoundingClientRect();
+
+                       return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                   }
+
+               };
+
+               // PhotoSwipe opened from URL
+               if(fromURL) {
+                   if(options.galleryPIDs) {
+                       // parse real index when custom PIDs are used
+                       // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
+                       for(var j = 0; j < items.length; j++) {
+                           if(items[j].pid == index) {
+                               options.index = j;
+                               break;
+                           }
+                       }
+                   } else {
+                       // in URL indexes start from 1
+                       options.index = parseInt(index, 10) - 1;
+                   }
+               } else {
+                   options.index = parseInt(index, 10);
+               }
+
+               // exit if index not found
+               if( isNaN(options.index) ) {
+                   return;
+               }
+
+               if(disableAnimation) {
+                   options.showAnimationDuration = 0;
+               }
+
+               // Pass data to PhotoSwipe and initialize it
+               gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+               gallery.init();
+           };
+
+           // loop through all gallery elements and bind events
+           var galleryElements = document.querySelectorAll( gallerySelector );
+
+           for(var i = 0, l = galleryElements.length; i < l; i++) {
+               galleryElements[i].setAttribute('data-pswp-uid', i+1);
+               galleryElements[i].onclick = onThumbnailsClick;
+           }
+
+           // Parse URL and open gallery if it contains #&pid=3&gid=1
+           var hashData = photoswipeParseHash();
+           if(hashData.pid && hashData.gid) {
+               openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+           }
+         };
+
+         // execute above function
+         initPhotoSwipeFromDOM('.my-gallery');
+         </script>
+	<!-- Swiper JS -->
+	<script src="swiper.min.js"></script>
+	<script src="zepto.js"></script>
+	<script src="imgLoader.js"></script>
+	<!-- <script src="jquery.mobile-1.4.5.min.js"></script> -->
+	<!-- Initialize Swiper -->
+	<script>
+	var galleryTop = new Swiper('.gallery-top', {
+			nextButton: '.swiper-button-next',
+			prevButton: '.swiper-button-prev',
+			spaceBetween: 10,
+	});
+	var galleryThumbs = new Swiper('.gallery-thumbs', {
+			spaceBetween: 10,
+			centeredSlides: true,
+			slidesPerView: 'auto',
+			touchRatio: 0.2,
+			slideToClickedSlide: true
+	});
+	galleryTop.params.control = galleryThumbs;
+	galleryThumbs.params.control = galleryTop;
+
+	</script>
+  <script type="text/javascript">
+			/*  禁止拖动  */
+			//  document.ontouchmove = function(e){ e.preventDefault(); };
+  	//  $(document).ready(function(){
+      //   (function () {
+      //     var el = document.querySelector('.popul');
+      //     var startPosition, endPosition, deltaX, deltaY, moveLength;
+      //
+      //     el.addEventListener('touchstart', function (e) {
+      //         var touch = e.touches[0];
+      //         startPosition = {
+      //             x: touch.pageX,
+      //             y: touch.pageY
+      //         }
+      //     });
+      //
+      //     el.addEventListener('touchmove', function (e) {
+      //         var touch = e.touches[0];
+      //         endPosition = {
+      //             x: touch.pageX,
+      //             y: touch.pageY
+      //         }
+      //
+      //         deltaX = endPosition.x - startPosition.x;
+      //         deltaY = endPosition.y - startPosition.y;
+      //         moveLength = Math.sqrt(Math.pow(Math.abs(deltaX), 2) + Math.pow(Math.abs(deltaY), 2));
+      //         console.log(moveLength);
+      //     });
+      // })();
+			 Zepto(function($){
+
+			 $(".thumbnail").on("tap",function(){
+				//  alert(1);
+				 $(".popdiv").removeClass("hide");
+			 });
+
+
+			// $(document).on("pageinit","#page1",function(){
+			//
+			// 	$(".thumbnail").on("tap",function(){
+			// 			$(".popdiv").removeClass("hide");
+			// 	})
+
+			// document.getElementById("thumbnailid").addEventListener('touchstart',function(){
+			// 	$(".popdiv").removeClass("hide");
+			// })
+			 $(".escpopdiv").on("tap",function(){
+				  $(".popdiv").addClass("hide");
+			 });
+
+       $('.popul').swipe(function(){
+         var el = document.querySelector('.popul');
+             var startPosition, endPosition, deltaX, deltaY, moveLength;
+
+             el.addEventListener('touchstart', function (e) {
+                 var touch = e.touches[0];
+                 startPosition = {
+                     x: touch.pageX,
+                     y: touch.pageY
+                 }
+             });
+
+             el.addEventListener('touchmove', function (e) {
+                 var touch = e.touches[0];
+                 endPosition = {
+                     x: touch.pageX,
+                     y: touch.pageY
+                 }
+
+                 deltaX = endPosition.x - startPosition.x;
+                 deltaY = endPosition.y - startPosition.y;
+                 moveLength = Math.sqrt(Math.pow(Math.abs(deltaX), 2) + Math.pow(Math.abs(deltaY), 2));
+                 console.log(deltaY);
+
+             });
+        })
+			//  $(".popul > li").on("tap",function(){
+			// 		$(".popdiv2").removeClass("hide");
+			// 		var pop_img_url = $(this).children()[0].src;
+			// 		var indexof_ar = pop_img_url.indexOf("ar/");
+			// 		var length = pop_img_url.length;
+       //
+			// 		var naturalHeight = $(this).children()[0].naturalHeight;
+			// 		var naturalWidth = $(this).children()[0].naturalWidth
+			// 		/**
+			// 		var img_url = pop_img_url.substring(indexof_ar+3,length);
+       //
+			// 		$(".popdiv").addClass("hide");
+			// 		$(".tiny-image > div").each(function(){
+       //
+			// 			var url = $(this)[0].style.backgroundImage;
+			// 			if(url.indexOf(img_url)>0){
+			// 				console.log($(this))
+			// 				$(this).trigger("click");
+			// 			}
+       //
+			// 		});
+			// 		**/
+       //
+			// 		$(".popimg").attr('src',pop_img_url);
+			// 		if(naturalHeight>naturalWidth){
+			// 			$(".popimg").css({'width':'100%','height':'80%','position':'relative','top':'50%','transform':'translateY(-50%)'});
+			// 		}else {
+			// 			$(".popimg").css({'width':'100%','height':'50%','position':'relative','top':'50%','transform':'translateY(-50%)'});
+			// 		}
+			//  })
+			 $(".popdiv2").on("tap",function(){
+				 $(this).addClass("hide");
+			 })
+		 })
+  </script>
+
+<script>
+
+    //模拟加载慢的效果
+
+    var callbacks = [];
+    imgLoader(['imgs/1.jpg', 'imgs/2.jpg', 'imgs/3.jpg'], function (percentage) {
+        callbacks.push((function(percent, i){
+            return function(){
+                setTimeout(function(){
+                    var percentT = percent * 100;
+                    $('#loader__info').html('Loading ' + (parseInt(percentT)) + '%');
+                    $('#loader__progress')[0].style.width = percentT + '%';
+                    if (percent == 1) {
+                        setTimeout(function(){
+                            $('#loader').remove();
+                            // Swipe.init();
+                        }, 600);
+                    }
+                    callbacks[i + 1] && callbacks[i + 1]();
+                },600);
+            }
+        })(percentage, callbacks.length));
+
+        if(percentage == 1) {
+            callbacks[0]();
+        }
+    });
+
+    //=================================================
+    //* 以上代码为模拟网速慢的情况，特意对进度处理的回调做了延迟
+    //* 真实环境，应该使用下面注释的代码
+    //=================================================
+				// var get_img_arr = function(sum){
+				// 	var array = [];
+				// 	for ( var i = 1; i <= sum; i++){
+				// 			array.push('imgs/'+i+'.jpg');
+				// 	}
+				// 	return array;
+				// }
+				// var start_time = new Date().getTime();
+        // imgLoader(get_img_arr(20), function (percentage) {
+        //     var percentT = percentage * 100;
+        //     $('#loader__info').html('Loading ' + (parseInt(percentT)) + '%');
+        //     $('#loader__progress')[0].style.width = percentT + '%';
+				// 		var end_time = new Date().getTime();
+        //     if (percentage == 1 || (end_time - start_time) > 5000) {
+        //         $('#loader').remove();
+				// 				// $('.big-image').removeClass("hide");
+        //     }
+        // });
+
+</script>
+
+
+
+</body>
+</html>

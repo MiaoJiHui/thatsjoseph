@@ -1,2 +1,0 @@
-# thatsjoseph
-public resourses
